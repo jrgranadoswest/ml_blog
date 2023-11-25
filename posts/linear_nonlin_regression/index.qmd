@@ -1,0 +1,13 @@
+---
+title: "Linear & Nonlinear regression"
+author: "Jonathan West"
+date: "2023-11-23"
+categories: [Regression, code]
+description: "This is a blog post demonstrating linear and nonlinear regression."
+---
+
+hello
+
+![](thumbnail.jpg)
+
+Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.

@@ -1,0 +1,12 @@
+---
+title: "Classification"
+author: "Jonathan West"
+date: "2023-11-24"
+categories: [Classification, code]
+description: "This is a blog post demonstrating the concept of classification in machine learning."
+image: "image.jpg"
+---
+
+TODO
+
+![](thumbnail.jpg)

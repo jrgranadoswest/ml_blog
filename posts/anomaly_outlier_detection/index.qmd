@@ -1,0 +1,9 @@
+---
+title: "Anomaly/Outlier Detection"
+author: "Jonathan West"
+date: "2023-11-25"
+categories: ["Outlier detection", code]
+description: "This is a blog post demonstrating anomaly and outlier detection."
+---
+
+This blog post intends to demonstrate anomaly/outlier detection in machine learning.

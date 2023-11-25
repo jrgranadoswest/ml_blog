@@ -1,0 +1,12 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/anomaly_outlier_detection/index.html",
+      "/posts/classification/index.html",
+      "/posts/linear_nonlin_regression/index.html",
+      "/posts/clustering/index.html",
+      "/posts/prob_theory_rv/index.html"
+    ]
+  }
+]

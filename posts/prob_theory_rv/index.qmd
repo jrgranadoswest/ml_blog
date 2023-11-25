@@ -1,0 +1,38 @@
+---
+title: "Probability Theory & Random Variables"
+author: "Jonathan West"
+date: "2023-11-21"
+categories: ["Probability theory", "Random variables", code]
+description: "This is a blog post demonstrating concepts from probability theory and random variables."
+---
+
+This blog post demonstrates some concepts from probability theory and random variables.
+
+### Introduction
+Probability theory is a fundamental component of machine learning, as it covers the study of uncertainty and randomness. It entails the work of making predictions in the absence of complete information. Probability theory is an essential part of the mathematics behind machine learning. In this blog post we will walk through some concepts of probability theory. 
+
+### Important Concepts
+1. TODO
+
+2. TODO
+
+3. TODO
+
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```

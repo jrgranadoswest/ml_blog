@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "posts/clustering/index.html",
+    "href": "posts/clustering/index.html",
+    "title": "Clustering",
+    "section": "",
+    "text": "TODO"
+  },
+  {
+    "objectID": "posts/prob_theory_rv/index.html",
+    "href": "posts/prob_theory_rv/index.html",
+    "title": "Probability Theory & Random Variables",
+    "section": "",
+    "text": "This blog post demonstrates some concepts from probability theory and random variables.\n\nIntroduction\nProbability theory is a fundamental component of machine learning, as it covers the study of uncertainty and randomness. It entails the work of making predictions in the absence of complete information. Probability theory is an essential part of the mathematics behind machine learning. In this blog post we will walk through some concepts of probability theory.\n\n\nImportant Concepts\n\nTODO\nTODO\nTODO\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\nFigure 1: A line plot on a polar axis"
+  },
+  {
+    "objectID": "posts/classification/index.html",
+    "href": "posts/classification/index.html",
+    "title": "Classification",
+    "section": "",
+    "text": "TODO"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog\nWelcome to this blog! I am currently a student in CS5805 Machine Learning at Virginia Tech. This website serves to illustrate concepts from the course in a series of five blogs. Each blog post contains code and graphs used to demonstrate a machine learning concept."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CS5805 Blog",
+    "section": "",
+    "text": "Anomaly/Outlier Detection\n\n\n\n\n\n\n\nOutlier detection\n\n\ncode\n\n\n\n\nThis is a blog post demonstrating anomaly and outlier detection.\n\n\n\n\n\n\nNov 25, 2023\n\n\nJonathan West\n\n\n\n\n\n\n  \n\n\n\n\nClassification\n\n\n\n\n\n\n\nClassification\n\n\ncode\n\n\n\n\nThis is a blog post demonstrating the concept of classification in machine learning.\n\n\n\n\n\n\nNov 24, 2023\n\n\nJonathan West\n\n\n\n\n\n\n  \n\n\n\n\nLinear & Nonlinear regression\n\n\n\n\n\n\n\nRegression\n\n\ncode\n\n\n\n\nThis is a blog post demonstrating linear and nonlinear regression.\n\n\n\n\n\n\nNov 23, 2023\n\n\nJonathan West\n\n\n\n\n\n\n  \n\n\n\n\nClustering\n\n\n\n\n\n\n\nClustering\n\n\ncode\n\n\n\n\nThis is a blog post demonstrating the concept of clustering in machine learning.\n\n\n\n\n\n\nNov 22, 2023\n\n\nJonathan West\n\n\n\n\n\n\n  \n\n\n\n\nProbability Theory & Random Variables\n\n\n\n\n\n\n\nProbability theory\n\n\nRandom variables\n\n\ncode\n\n\n\n\nThis is a blog post demonstrating concepts from probability theory and random variables.\n\n\n\n\n\n\nNov 21, 2023\n\n\nJonathan West\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/anomaly_outlier_detection/index.html",
+    "href": "posts/anomaly_outlier_detection/index.html",
+    "title": "Anomaly/Outlier Detection",
+    "section": "",
+    "text": "This blog post intends to demonstrate anomaly/outlier detection in machine learning."
+  },
+  {
+    "objectID": "posts/linear_nonlin_regression/index.html",
+    "href": "posts/linear_nonlin_regression/index.html",
+    "title": "Linear & Nonlinear regression",
+    "section": "",
+    "text": "hello\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  }
+]
