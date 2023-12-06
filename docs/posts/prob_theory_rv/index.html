@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jonathan West">
 <meta name="dcterms.date" content="2023-11-21">
-<meta name="description" content="This is a blog post demonstrating concepts from probability theory and random variables.">
+<meta name="description" content="This blog post demonstrates concepts from probability theory and random variables.">
 
 <title>ML Blog - Probability Theory &amp; Random Variables</title>
 <style>
@@ -96,6 +96,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -141,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">Probability Theory &amp; Random Variables</h1>
                   <div>
         <div class="description">
-          This is a blog post demonstrating concepts from probability theory and random variables.
+          This blog post demonstrates concepts from probability theory and random variables.
         </div>
       </div>
                           <div class="quarto-categories">
@@ -183,42 +186,265 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This blog post demonstrates some concepts from probability theory and random variables.</p>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Probability theory is a fundamental component of machine learning, as it covers the study of uncertainty and randomness. It entails the work of making predictions in the absence of complete information. Probability theory is an essential part of the mathematics behind machine learning. In this blog post we will walk through some concepts of probability theory.</p>
-</section>
-<section id="important-concepts" class="level3">
-<h3 class="anchored" data-anchor-id="important-concepts">Important Concepts</h3>
-<ol type="1">
-<li><p>TODO</p></li>
-<li><p>TODO</p></li>
-<li><p>TODO</p></li>
-</ol>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Probability theory is a fundamental component of machine learning, as it covers the study of uncertainty and randomness. It entails the work of making predictions in the absence of complete information. In this blog post we will walk through some concepts of probability theory, show how probability theory and random variables will be important moving forward in our study of machine learning. In particular, we will discuss logistic regression and naive bayes classifiers.</p>
+<section id="probability-distribution-example" class="level3">
+<h3 class="anchored" data-anchor-id="probability-distribution-example">Probability Distribution example</h3>
+<p>One key aspect of probability theory is the probability distribution, which is essentially a mathematical function that provides the probabilities of occurrence of different possible outcomes in a given scenario. For instance, if we were to flip a coin, the probability distribution would be 50% heads and 50% tails. To get started, we will generate two sets of random data, to demonstrate the uniform and normal probability distributions.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  subplot_kw <span class="op">=</span> {<span class="st">'projection'</span>: <span class="st">'polar'</span>} </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ax.plot(theta, r)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random data from two distributions</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data_unif <span class="op">=</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">800</span>)  <span class="co"># Uniform</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data_norm <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">800</span>)  <span class="co"># Normal</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">8</span>))  <span class="co"># Create figure with two subplots</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Uniform Distribution</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.hist(data_unif, bins<span class="op">=</span><span class="dv">20</span>, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'green'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Random Variable Values'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Probability Density'</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Uniform Probability Distribution'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Normal Distribution</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.hist(data_norm, bins<span class="op">=</span><span class="dv">20</span>, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">'purple'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Random Variable Values'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Probability Density'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Normal Probability Distribution'</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()  <span class="co"># Avoid overlapping graphs</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.show()  <span class="co"># Display</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div id="fig-polar" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/fig-polar-output-1.png" width="450" height="439" class="figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: A line plot on a polar axis</figcaption>
-</figure>
+<p><img src="index_files/figure-html/cell-2-output-1.png" width="566" height="758"></p>
 </div>
 </div>
+<p>As you can see above, the uniform distribution appears as a rough rectangle, while the normal distribution appears as a bell curve. These are two common probability distributions, where outcomes are all equally likely, and where outcomes are more likely to be near the mean, respectively. Next lets apply some probability theory to a more practical set of data.</p>
+</section>
+<section id="load-and-examine-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-and-examine-data">Load and examine data</h3>
+<p>First we will load the <code>iris</code> dataset from scikit-learn, and examine its features.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load iris dataset</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>iris_data <span class="op">=</span> load_iris()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display some basic information about the dataset</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Iris Dataset:"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(iris_data.target_names)<span class="sc">}</span><span class="ss"> Target names: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(iris_data.target_names)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(iris_data.feature_names)<span class="sc">}</span><span class="ss"> Feature names: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(iris_data.feature_names)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data shape: </span><span class="sc">{</span>iris_data<span class="sc">.</span>data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Iris Dataset:
+3 Target names: setosa, versicolor, virginica
+4 Feature names: sepal length (cm), sepal width (cm), petal length (cm), petal width (cm)
+Data shape: (150, 4)</code></pre>
 </div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first 5 rows of data</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(iris_data.data, columns<span class="op">=</span>iris_data.feature_names)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"target"</span>] <span class="op">=</span> iris_data.target</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over data frame and replace target values with target names</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> target, target_name <span class="kw">in</span> <span class="bu">enumerate</span>(iris_data.target_names):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"target"</span>] <span class="op">=</span> df[<span class="st">"target"</span>].replace(target, target_name)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
 
 
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sepal length (cm)</th>
+<th data-quarto-table-cell-role="th">sepal width (cm)</th>
+<th data-quarto-table-cell-role="th">petal length (cm)</th>
+<th data-quarto-table-cell-role="th">petal width (cm)</th>
+<th data-quarto-table-cell-role="th">target</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>5.1</td>
+<td>3.5</td>
+<td>1.4</td>
+<td>0.2</td>
+<td>setosa</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>4.9</td>
+<td>3.0</td>
+<td>1.4</td>
+<td>0.2</td>
+<td>setosa</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>4.7</td>
+<td>3.2</td>
+<td>1.3</td>
+<td>0.2</td>
+<td>setosa</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4.6</td>
+<td>3.1</td>
+<td>1.5</td>
+<td>0.2</td>
+<td>setosa</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5.0</td>
+<td>3.6</td>
+<td>1.4</td>
+<td>0.2</td>
+<td>setosa</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>As shown above, this dataset contains 150 observations, with 4 features, and 3 target classes. By loading the dataset into a pandas dataframe, we can easily visualize the data and its features.</p>
+<p>First, lets visualize the data with a kernel density estimate (KDE) plot, which allows us to visualize the distribution of observations in a dataset. The KDE plot is a smoothed version of the histogram, which shows the probability density function (PDF) of the data.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># KDE plot of data </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.displot(df, x<span class="op">=</span><span class="st">"sepal length (cm)"</span>, kde<span class="op">=</span><span class="va">True</span>, hue<span class="op">=</span><span class="st">"target"</span>, stat<span class="op">=</span><span class="st">"density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-5-output-1.png" width="592" height="470"></p>
+</div>
+</div>
+<p>Above we can see the KDE plot of the sepal length feature, with the target classes colored. The “stat” argument, in this case set to “density”, means that the KDE plot will be normalized such that the area under the curve is equal to 1. This graph allows us to understand the probability distribution of our data in terms of the target classes. We can see that the setosa class has a much smaller sepal length than the other two classes.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sns.displot(df, x<span class="op">=</span><span class="st">"sepal width (cm)"</span>, kde<span class="op">=</span><span class="va">True</span>, hue<span class="op">=</span><span class="st">"target"</span>, stat<span class="op">=</span><span class="st">"count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-6-output-1.png" width="592" height="470"></p>
+</div>
+</div>
+<p>With this second graph, we can see that the sepal width feature is not as useful for distinguishing between the target classes, as the distributions are very similar. However, the setosa class does appear to have a slightly larger sepal width than the other two, and the versicolor class appears to have a slightly smaller sepal width than the other two. By accounting for all of the features, we can create a more accurate model for predicting the target classes, even when certain features are not as useful on their own. We will discuss this type of work in future blog posts, but we will show a simple way to predict the target classes from the data using logistic regression, and a naïve bayes classifier.</p>
+</section>
+<section id="logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
+<p>Logistic regression is a statistical model used for binary classification tasks, where the goal is to predict one of two possible outcomes, like true or false. However, it can also handle multi-class classification problems by using techniques like one-vs-all (OvA) or softmax regression. “One-vs-all” is exactly what it sounds like; we train a binary classifier for each class, to just predict if a given data point belongs to that class or any of the others.</p>
+<p>Logistic regression is based on the idea of modeling the probability of an observation belonging to a particular class. It essentially predicts the probability of an observation belonging to a specific category or class. We use the sigmoid function to map the linear combination of input features to a probability score between 0 and 1, because the sigmoid function is bounded by 0 and 1, and conveniently approaches 1 as the input approaches infinity, and approaches 0 as the input approaches negative infinity.</p>
+<p>Logistic regression works by calculating a linear combination of the input features, then applying the sigmoid function to this value to get the probability of the observation belonging to a particular class. We can define a numerical boundary to classify probability scores as indicating one class or the other.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> iris_data.data  <span class="co"># Feature variables</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> iris_data.target  <span class="co"># Target variable</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset into training and testing sets</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.35</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># create model and fit with data</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>log_reg_model <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">42</span>, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>log_reg_model.fit(X_train, y_train)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict target values of test data using the trained model</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> log_reg_model.predict(X_test)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine performance of model</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>confusion_matrix <span class="op">=</span> sklearn.metrics.confusion_matrix(y_test, y_pred)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, confusion_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix:
+ [[19  0  0]
+ [ 0 17  0]
+ [ 0  0 17]]</code></pre>
+</div>
+</div>
+<p>The confusion matrix is a common way to display classification results. It shows the number of true positives, false positives, true negatives, and false negatives. In this case we obtained a 3 by 3 grid due to the 3 target classes. The diagonal of the matrix shows the number of true negatives, while the off-diagonal elements show the number of incorrect predictions, specifically what class was correct and what class it was predicted as.</p>
+<p>In this case with a fairly straightforward dataset, you can see that our model had false positives on our test data.</p>
+<p>Lets visualize the confusion matrix with a heatmap.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>conf_mat_display <span class="op">=</span> sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>confusion_matrix, display_labels<span class="op">=</span>iris_data.target_names)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>conf_mat_display.plot()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-8-output-1.png" width="565" height="429"></p>
+</div>
+</div>
+</section>
+<section id="naïve-bayes-classifier" class="level3">
+<h3 class="anchored" data-anchor-id="naïve-bayes-classifier">Naïve Bayes Classifier</h3>
+<p>The Naïve Bayes classifier is a simple probabilistic classifier based on applying Bayes’ theorem with strong (naïve) independence assumptions. It will allow us to classify the data into predicted target classes, based on the probability of the data belonging to each class, judged by the features. Naïve Bayes classifiers have found popularity for text classification, for example in dealing with spam detection.</p>
+<p>It considers the probability of an observation belonging to a particular class, given the features of the observation, and classifies the observation as the class with the highest probability. Lets use the same iris dataset as before, and see how well the naïve bayes classifier does.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the Naive Bayes classifier (GaussianNB is used for continuous data), and fit to training data</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> GaussianNB()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>classifier.fit(X_train, y_train)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test data</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> classifier.predict(X_test)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine performance of classifier</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>confusion_matrix <span class="op">=</span> sklearn.metrics.confusion_matrix(y_test, y_pred)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>class_report <span class="op">=</span> sklearn.metrics.classification_report(y_test, y_pred, target_names<span class="op">=</span>iris_data.target_names)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, confusion_matrix)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Classification Report:"</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(class_report)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix:
+ [[19  0  0]
+ [ 0 16  1]
+ [ 0  1 16]]
+Classification Report:
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        19
+  versicolor       0.94      0.94      0.94        17
+   virginica       0.94      0.94      0.94        17
+
+    accuracy                           0.96        53
+   macro avg       0.96      0.96      0.96        53
+weighted avg       0.96      0.96      0.96        53
+</code></pre>
+</div>
+</div>
+<p>As you can see, the naïve bayes classifier performed fairly well on this dataset, although not as well as the logistic regression model. Finally, lets visualize the confusion matrix with a heatmap.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>conf_mat_display <span class="op">=</span> sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>confusion_matrix, display_labels<span class="op">=</span>iris_data.target_names)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>conf_mat_display.plot()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-10-output-1.png" width="565" height="429"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>In this blog post, we jumped into the concepts of probability theory and random variables which are essential to machine learning. Probability theory enables us to model uncertainty, make informed decisions, and construct intelligent systems. Random variables allow us to quantify and analyze various aspects of the world and the patterns and randomness which occur. These concepts are applied in many machine learning algorithms, as exemplified with logistic regression and naïve bayes classifiers.</p>
+<p>I hope this blog post has been helpful in understanding these concepts, and I hope you return for future machine learning blog posts.</p>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>https://numpy.org/doc/stable/reference/random/generator.html</li>
+<li>https://matplotlib.org/stable/gallery/statistics/hist.html</li>
+<li>https://seaborn.pydata.org/generated/seaborn.kdeplot.html</li>
+<li>https://www.datacamp.com/tutorial/understanding-logistic-regression-python</li>
+<li>https://maptv.github.io/blog/prob/</li>
+<li>https://scikit-learn.org/stable/modules/generated/sklearn.metrics.ConfusionMatrixDisplay.html</li>
+</ol>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->

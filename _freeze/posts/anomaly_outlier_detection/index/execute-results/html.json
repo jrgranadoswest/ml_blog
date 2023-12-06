@@ -1,0 +1,11 @@
+{
+  "hash": "3da55592494c5a1d6452dd06b0bd8ec5",
+  "result": {
+    "markdown": "---\ntitle: \"Anomaly/Outlier Detection\"\nauthor: \"Jonathan West\"\ndate: \"2023-11-25\"\ncategories: [\"Outlier detection\", code]\ndescription: \"This is a blog post demonstrating anomaly and outlier detection.\"\n---\n\nThis blog post intends to demonstrate anomaly/outlier detection in machine learning. We will be examining the California housing dataset from scikit learn to explore the concept of anomaly and outlier detection. We will walk through the entire process from loading the dataset to identifying and visualizing outliers in the data.\n\n### Load and summarize the data\n\n::: {.cell execution_count=1}\n``` {.python .cell-code}\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import fetch_california_housing\n\n# Load the California housing dataset\nhousing_data = fetch_california_housing()\n# for key in housing_data.keys():\n    # print(key)\nprint(\"Target variable:\")\nprint(housing_data.target_names)\nprint(\"Features:\")\nprint(housing_data.feature_names)\n# print(housing_data.DESCR)\n# print(housing_data.data.shape)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nTarget variable:\n['MedHouseVal']\nFeatures:\n['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']\n```\n:::\n:::\n\n\nThis dataset contains housing data from California with the target variable being the median house value in hundreds of thousands of dollars. There are eight features in this dataset. \n\nNext, lets make a scatter plot to quickly display the data we are working with.\n\n::: {.cell execution_count=2}\n``` {.python .cell-code}\n# Extract the features and target variable\nX = housing_data.data  # Features\ny = housing_data.target  # Target variable\n\n# Plotting the data\nplt.figure(figsize=(10, 6))\nplt.scatter(X[:, 0], y, s=10, c='b', marker='o', label='Feature 1')\nplt.xlabel('Feature 1')\nplt.ylabel('Target')\nplt.title('California Housing Dataset')\nplt.legend()\nplt.grid(True)\nplt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-3-output-1.png){width=799 height=523}\n:::\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

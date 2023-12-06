@@ -6,4 +6,40 @@ categories: ["Outlier detection", code]
 description: "This is a blog post demonstrating anomaly and outlier detection."
 ---
 
-This blog post intends to demonstrate anomaly/outlier detection in machine learning.
+This blog post intends to demonstrate anomaly/outlier detection in machine learning. We will be examining the California housing dataset from scikit learn to explore the concept of anomaly and outlier detection. We will walk through the entire process from loading the dataset to identifying and visualizing outliers in the data.
+
+### Load and summarize the data
+```{python}
+import matplotlib.pyplot as plt
+from sklearn.datasets import fetch_california_housing
+
+# Load the California housing dataset
+housing_data = fetch_california_housing()
+# for key in housing_data.keys():
+    # print(key)
+print("Target variable:")
+print(housing_data.target_names)
+print("Features:")
+print(housing_data.feature_names)
+# print(housing_data.DESCR)
+# print(housing_data.data.shape)
+```
+
+This dataset contains housing data from California with the target variable being the median house value in hundreds of thousands of dollars. There are eight features in this dataset. 
+
+Next, lets make a scatter plot to quickly display the data we are working with.
+```{python}
+# Extract the features and target variable
+X = housing_data.data  # Features
+y = housing_data.target  # Target variable
+
+# Plotting the data
+plt.figure(figsize=(10, 6))
+plt.scatter(X[:, 0], y, s=10, c='b', marker='o', label='Feature 1')
+plt.xlabel('Feature 1')
+plt.ylabel('Target')
+plt.title('California Housing Dataset')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
