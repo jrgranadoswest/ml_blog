@@ -5,6 +5,9 @@ date: "2023-11-22"
 categories: [Clustering, code]
 description: "This blog post demonstrates the concept of clustering in machine learning."
 image: "clustering.png"
+format:
+    html:
+        code-tools: true
 ---
 
 
@@ -69,6 +72,9 @@ We start by initializing the centroids to random points in the color space. In p
 
 ```{python}
 import random
+
+# Set seed for reproducibility
+random.seed(42)
 k = 4
 # Random number between 0 and 255:
 num = random.randint(0, 255)

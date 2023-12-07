@@ -3,7 +3,10 @@ title: "Anomaly/Outlier Detection"
 author: "Jonathan West"
 date: "2023-11-25"
 categories: ["Outlier detection", code]
-description: "This is a blog post demonstrating anomaly and outlier detection."
+description: "This blog demonstrates anomaly and outlier detection."
+format:
+    html:
+        code-tools: true
 ---
 
 This blog post intends to demonstrate anomaly/outlier detection in machine learning. We will be examining the California housing dataset from scikit learn to explore the concept of anomaly and outlier detection. We will walk through the entire process from loading the dataset to identifying and visualizing outliers in the data.
